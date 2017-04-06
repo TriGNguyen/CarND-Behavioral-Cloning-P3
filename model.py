@@ -5,7 +5,6 @@ from keras.layers.core import Dropout
 from keras.layers import Convolution2D, Cropping2D, Dense, Flatten, Lambda
 from keras.layers.pooling import MaxPooling2D
 from keras.models import Sequential
-from matplotlib.colors import rgb_to_hsv
 from numpy import array, flip
 from os.path import join
 from random import random
@@ -16,7 +15,7 @@ from time import time
 
 DATA_DIRECTORIES = ['data', 'data_2', 'data_3', 'data_4', 'data_5', 'data_6', 'data_7', 'data_8']
 LOG_FILE = 'driving_log.csv'
-MODEL_DIR = 'model_2017_04_05'
+MODEL_DIR = 'model_2017_04_05_9PM'
 MODEL_NAME = 'model.h5'
 
 def load_training_data(p_data_directories):
@@ -46,12 +45,13 @@ def load_training_data(p_data_directories):
                 images.append(flip(center_image, axis=1))
                 steerings.append(steering * -1.0)
 
-    return array(images), array(steerings)
+    return array(images)), array(steerings
 
 
 def define_model():
     model = Sequential()
     model.add(Cropping2D(cropping=((50, 20), (0, 0)), input_shape=(160, 320, 3)))
+    model.add(Lambda(lambda x: x * 2.0 - 1.0))
     model.add(Convolution2D(4, 5, 5, activation='relu'))
     model.add(MaxPooling2D())
     model.add(Convolution2D(8, 5, 5, activation='relu'))
@@ -73,7 +73,6 @@ def main():
     main_start_time = time()
 
     images, steerings = load_training_data(DATA_DIRECTORIES)
-    images = rgb_to_hsv(images / 255.0) * 2.0 - 1
     model = define_model()
     train_model(model, images, steerings)
 
