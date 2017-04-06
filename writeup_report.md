@@ -59,7 +59,7 @@ The model includes RELU layers to introduce nonlinearity (code line 55 and 57), 
 
 I select small network size to prevent overfiting. Drop out is not neccessary since the network size is small enough; drop out will hammer the results driving performance according to my experiments.
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 702). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 70). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #3. Model parameter tuning
 
